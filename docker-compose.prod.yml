@@ -1,0 +1,33 @@
+services:
+  rust-backend:
+    build:
+      context: ./backend/rust
+      dockerfile: Dockerfile.prod
+    image: baby-records-rust-backend:prod
+    environment:
+      - RUST_LOG=info
+    command: ["app"]
+
+  go-backend:
+    build:
+      context: ./backend/go
+      dockerfile: Dockerfile.prod
+    image: baby-records-go-backend:prod
+    command: ["app"]
+
+  frontend-web:
+    build:
+      context: ./frontend/web
+      dockerfile: Dockerfile.prod
+    image: baby-records-frontend-web:prod
+    environment:
+      - NODE_ENV=production
+    command: ["nginx", "-g", "daemon off;"]
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: baby
+      POSTGRES_PASSWORD: super_secure_password
+      POSTGRES_DB: baby_records
+

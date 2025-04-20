@@ -1,0 +1,29 @@
+services:
+  rust-backend:
+    build:
+      context: ./backend/rust
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend/rust:/app
+    environment:
+      - RUST_LOG=debug
+    command: ["cargo", "watch", "-x", "run"]
+
+  go-backend:
+    build:
+      context: ./backend/go
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend/go:/app
+    command: ["go", "run", "main.go"]
+
+  frontend-web:
+    build:
+      context: ./frontend/web
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/web:/app
+    environment:
+      - NODE_ENV=development
+    command: ["npm", "start"]
+

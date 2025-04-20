@@ -1,0 +1,13 @@
+# 開発環境用のRustのDockerfile
+FROM rust:1.81-slim as builder
+
+WORKDIR /app
+# cargo-watch をインストール
+RUN cargo install cargo-watch
+
+COPY . .
+RUN cargo build
+
+# ホットリロード
+CMD ["cargo", "watch", "-x", "run"]
+

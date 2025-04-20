@@ -1,0 +1,12 @@
+# 開発環境用のGoのDockerfile
+FROM golang:1.22 as builder
+
+WORKDIR /app
+
+# ソースコードをコピーして依存関係をインストール
+COPY . .
+RUN go mod tidy
+
+# 開発中にホットリロードするためのコマンド
+CMD ["go", "run", "main.go"]
+

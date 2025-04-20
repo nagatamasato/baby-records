@@ -1,0 +1,22 @@
+# 本番環境用のGoのDockerfile
+FROM golang:1.22 as builder
+
+WORKDIR /app
+
+# ソースコードをコピーして依存関係をインストール
+COPY . .
+RUN go mod tidy
+
+# ビルドしてバイナリを作成
+RUN go build -o app .
+
+# 本番用の実行ファイルを実行
+FROM debian:bookworm-slim
+
+WORKDIR /app
+COPY --from=builder /app/app /usr/local/bin/app
+
+EXPOSE 8080
+
+CMD ["app"]
+
