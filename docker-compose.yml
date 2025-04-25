@@ -2,7 +2,7 @@ services:
   rust-backend:
     build:
       context: ./backend/rust
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     ports:
       - "8000:8000"
     environment:
@@ -11,18 +11,21 @@ services:
   go-backend:
     build:
       context: ./backend/go
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     ports:
       - "8080:8080"
 
   frontend-web:
     build:
       context: ./frontend/web
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     ports:
-      - "3000:80"
+      - "3000:3000"
+    volumes:
+      - ./frontend/web:/app
+      - /app/node_modules
     environment:
-      - NODE_ENV=production
+      - CHOKIDAR_USERPOLLING=true
 
   db:
     image: postgres:16
