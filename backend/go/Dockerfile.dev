@@ -3,14 +3,10 @@ FROM golang:1.22 as builder
 
 WORKDIR /app
 
-# wait-for-it.sh を追加
-COPY wait-for-it.sh /usr/local/bin/wait-for-it
-RUN chmod +x /usr/local/bin/wait-for-it
+COPY . /app
 
-# ソースコードをコピーして依存関係をインストール
-COPY . .
+# 依存インストール
 RUN go mod tidy
 
-# PostgreSQL の起動を待ってから go run を
-CMD ["wait-for-it", "db:5432", "--", "go", "run", "main.go"]
+CMD ["go", "run", "main.go"]
 

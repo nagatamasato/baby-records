@@ -1,8 +1,8 @@
 services:
   rust-backend:
     build:
-      context: ./backend/rust
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: backend/rust/Dockerfile.dev
     ports:
       - "8000:8000"
     volumes:
@@ -16,8 +16,8 @@ services:
 
   go-backend:
     build:
-      context: ./backend/go
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: backend/go/Dockerfile.dev
     ports:
       - "8080:8080"
     volumes:
@@ -28,8 +28,8 @@ services:
 
   frontend-web:
     build:
-      context: ./frontend/web
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: frontend/web/Dockerfile.dev
     ports:
       - "3000:3000"
     volumes:

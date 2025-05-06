@@ -1,9 +1,12 @@
-# 開発環境用のFrontendのDockerfile
+# フロントエンド開発用 Dockerfile
 FROM node:20
 
 WORKDIR /app
-COPY package*.json ./
+
+COPY package*.json .
 RUN npm install
 
-CMD ["npm", "start"]
+COPY . . 
+
+CMD ["npm", "run", "dev"]
 
