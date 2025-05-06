@@ -6,16 +6,10 @@ WORKDIR /app
 # cargo-watch をインストール
 RUN cargo install cargo-watch
 
-# wait-for-it.sh を追加
-COPY wait-for-it.sh /usr/local/bin/wait-for-it
-RUN chmod +x /usr/local/bin/wait-for-it
+COPY . /app
 
-# プロジェクトのソースコードをコピー
-COPY . .
-
-# 事前ビルド（キャッシュ目的）
+# 初期ビルド（キャッシュ目的）
 RUN cargo build
 
-# PostgreSQL の起動を待ってから cargo watch を起動
-CMD ["wait-for-it", "db:5432", "--", "cargo", "watch", "-x", "run"]
+CMD ["cargo", "watch", "-x", "run"]
 
