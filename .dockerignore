@@ -1,0 +1,22 @@
+# 除外
+.git
+.gitignore
+README.md
+
+# Rust
+backend/rust/target
+
+# Go
+backend/go/bin
+# 拡張子は除外しない（意図せず除外されるため）
+# *.exe
+# *.out
+
+# Node.js
+frontend/web/node_modules
+
+# OS / エディタ
+**/__pycache__/
+**/.DS_Store
+**/*.swp
+
